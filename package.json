@@ -20,5 +20,8 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
   }
 }
