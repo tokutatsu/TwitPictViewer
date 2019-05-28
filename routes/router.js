@@ -6,8 +6,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/viewer', (req, res) => {
-    res.render('viewer', {
-        id: req.query.id
+    require('./api/imageCollector.js')(req.query.id).then((image) => {
+        res.render('viewer', {
+            id: req.query.id,
+            image: image
+        });
     });
 });
 
