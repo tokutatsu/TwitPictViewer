@@ -3,15 +3,22 @@
 
 <head>
     <title>TwitPictViewer</title>
+    <link rel="stylesheet" href="/public/dist/luminous-basic.min.css">
+    <link rel="stylesheet" href="/public/css/viewer.css">
+    <script type="text/javascript" src="/public/dist/luminous.min.js"></script>
 </head>
+
 <body>
     <h1><%- id %></h1>
     <form method="GET" action="/">
         <input type="submit" value="戻る">
     </form>
     <% for (let list of image) { %>
-        <img src="<%= list %>">
+    <a href="<%= list %>" class="luminous">
+        <img src="<%= list %>" class="view" alt="画像">
+    </a>
     <% } %>
+    <script type="text/javascript" src="/public/javascript/viewer.js"></script>
 </body>
 
 </html>
