@@ -11,15 +11,6 @@ const tweetPush = (image, tweets) => {
     }
 };
 
-const getUrl = (image, params) => {
-    client.get('statuses/user_timeline', params, (err, tweets, res) => {
-        if (!err) {
-            tweetPush(image, tweets);
-            params.max_id = tweets[tweets.length - 1].id;
-        }
-    });
-};
-
 module.exports = (id) => {
     return new Promise((resolve, reject) => {
         let image = [];
@@ -33,12 +24,19 @@ module.exports = (id) => {
         };
 
         let interval = setInterval(() => {
-            getUrl(image, params);
-            count++;
-            if (count == 16) {
-                resolve(image);
-                clearInterval(interval);
-            }
-        }, 500);
+            client.get('statuses/user_timeline', params, (err, tweets, res) => {
+                if (!err) {
+                    tweetPush(image, tweets);
+                    params.max_id = tweets[tweets.length - 1].id - 1;
+                }
+                count++;
+            });
+            setTimeout(() => {
+                if (count == 16) {
+                    resolve(image);
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }, 1000);
     });
 };
