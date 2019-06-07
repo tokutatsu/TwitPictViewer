@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TwitPictViewer</title>
     <link rel="stylesheet" href="/public/dist/luminous-basic.min.css">
     <link rel="stylesheet" href="/public/css/viewer.css">
@@ -15,8 +18,8 @@
         <input type="submit" value="戻る">
     </form>
     <% for (let list of image) { %>
-    <a href="<%= list %>" class="luminous">
-        <img src="<%= list %>" class="view" alt="画像">
+    <a href="<%- list %>" class="luminous">
+        <img src="<%- list %>" class="view" alt="画像">
     </a>
     <% } %>
     <script type="text/javascript" src="/public/javascript/viewer.js"></script>
