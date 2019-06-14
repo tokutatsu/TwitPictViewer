@@ -21,32 +21,44 @@ const tweetPush = (image, tweets) => {
 
 module.exports = (id) => {
     return new Promise((resolve, reject) => {
-        const searchId = id;
         const loopNum = 16;
         let image = [];
         let count = 0;
-        let maxId;
+        let beforeId;
         let params = {
-            screen_name: searchId,
+            screen_name: id,
             count: 200,
-            max_id: maxId,
             include_rts: false
         };
 
-        let interval = setInterval(() => {
-            client.get('statuses/user_timeline', params, (err, tweets, res) => {
-                if (!err) {
-                    params.max_id = tweetPush(image, tweets);
-                    count++;
-                    if (params.max_id === null) {
-                        count = loopNum;
-                    }
+        // 1回目だけparam.max_idが'undefined'なので別処理
+        client.get('statuses/user_timeline', params, (err, tweets, res) => {
+            if (!err) {
+                params.max_id = tweetPush(image, tweets);
+                count++;
+                if (params.max_id === null) {
+                    count = loopNum;
                 }
-            });
+            }
+        });
+
+        let interval = setInterval(() => {
             if (count === loopNum) {
                 resolve(image);
                 clearInterval(interval);
             }
-        }, 1000);
+            if (params.max_id !== beforeId) {
+                beforeId = params.max_id;
+                client.get('statuses/user_timeline', params, (err, tweets, res) => {
+                    if (!err) {
+                        params.max_id = tweetPush(image, tweets);
+                        count++;
+                        if (params.max_id === null) {
+                            count = loopNum;
+                        }
+                    }
+                });
+            }
+        }, 1);
     });
 };
