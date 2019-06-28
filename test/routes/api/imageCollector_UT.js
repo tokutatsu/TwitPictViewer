@@ -9,13 +9,13 @@ describe('imageCollectorのテスト', () => {
             if (image.length == 0) {
                 assert.ok(true);
             } else {
-                let okCoutn = 0;
+                let okCount = 0;
                 for (const list of image) {
                     if (RegExp('http://').test(list)) {
-                        okCoutn++;
+                        okCount++;
                     }
                 }
-                assert.equal(okCoutn, image.length);
+                assert.equal(okCount, image.length);
             }
             done();
         }).catch((err) => {
