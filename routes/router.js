@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const imageCollector = require('./api/imageCollector.js');
 
 router.get('/', (req, res) => {
     res.render('index');
 });
 
 router.get('/viewer', (req, res) => {
-    require('./api/imageCollector.js')(req.query.id).then((image) => {
-        res.render('viewer', {
-            id: req.query.id,
-            image: image
-        });
+    imageCollector(req.query.id).then((data) => {
+        res.render('viewer', data);
     });
 });
 

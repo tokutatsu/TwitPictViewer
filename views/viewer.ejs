@@ -5,11 +5,11 @@
 </head>
 
 <h1 class="mt-5">ユーザID: <%- id %></h1>
-<h1 class="mt-3"><%- image.length %>枚の画像</h1>
+<h1 class="mt-3"><%- images.length %>枚の画像</h1>
 
-<% for (const list of image) { %>
-<a href="<%- list %>" class="luminous">
-    <img src="<%- list %>" class="view" alt="画像">
+<% for (const image of images) { %>
+<a href="<%- image %>" class="luminous">
+    <img src="<%- image %>" class="view" alt="画像">
 </a>
 <% } %>
 <script type="text/javascript" src="/public/javascript/viewer.js"></script>

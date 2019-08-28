@@ -2,20 +2,20 @@ const assert = require('assert').strict;
 const imageCollector = require('../../../routes/api/imageCollector.js');
 
 describe('imageCollectorのテスト', () => {
-    const test = imageCollector('id');
+    const test = imageCollector('tokutatsu1010');
 
     it('配列がURLか空かどうか', (done) => {
-        test.then((image) => {
-            if (image.length == 0) {
+        test.then((data) => {
+            if (data.images.length == 0) {
                 assert.ok(true);
             } else {
                 let okCount = 0;
-                for (const list of image) {
-                    if (RegExp('http://').test(list)) {
+                for (const image of data.images) {
+                    if (RegExp('http://').test(image)) {
                         okCount++;
                     }
                 }
-                assert.equal(okCount, image.length);
+                assert.equal(okCount, data.images.length);
             }
             done();
         }).catch((err) => {

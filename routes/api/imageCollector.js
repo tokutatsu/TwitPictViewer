@@ -2,12 +2,12 @@ const twitter = require('twitter');
 const client = new twitter(require('../../token.json'));
 const Long = require('long');
 
-const tweetPush = (image, tweets) => {
+const tweetPush = (images, tweets) => {
     let minId;
     for (let tweet of tweets) {
         if (tweet.extended_entities) {
             for (let media of tweet.extended_entities.media) {
-                image.push(media.media_url);
+                images.push(media.media_url);
             }
         }
         minId = tweet.id_str;
@@ -22,7 +22,8 @@ const tweetPush = (image, tweets) => {
 module.exports = (id) => {
     return new Promise((resolve, reject) => {
         const loopNum = 16;
-        let image = [];
+        let data = {};
+        let images = [];
         let count = 0;
         let beforeId;
         let params = {
@@ -34,7 +35,7 @@ module.exports = (id) => {
         // 1回目だけparam.max_idが'undefined'なので別処理
         client.get('statuses/user_timeline', params, (err, tweets, res) => {
             if (!err) {
-                params.max_id = tweetPush(image, tweets);
+                params.max_id = tweetPush(images, tweets);
                 count++;
                 if (params.max_id === null) {
                     count = loopNum;
@@ -44,14 +45,16 @@ module.exports = (id) => {
 
         let interval = setInterval(() => {
             if (count === loopNum) {
-                resolve(image);
+                data.id = id;
+                data.images = images;
+                resolve(data);
                 clearInterval(interval);
             }
             if (params.max_id !== beforeId) {
                 beforeId = params.max_id;
                 client.get('statuses/user_timeline', params, (err, tweets, res) => {
                     if (!err) {
-                        params.max_id = tweetPush(image, tweets);
+                        params.max_id = tweetPush(images, tweets);
                         count++;
                         if (params.max_id === null) {
                             count = loopNum;
