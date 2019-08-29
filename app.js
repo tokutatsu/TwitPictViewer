@@ -7,6 +7,7 @@ app.set('view engine', 'ejs');
 
 app.use(expressLayouts);
 app.use('/', require('./routes/router.js'));
+app.use('/api', require('./routes/api.js'));
 app.use('/public', express.static(__dirname + '/public'));
 
 app.use((req, res, next) => {
