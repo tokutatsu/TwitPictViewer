@@ -22,7 +22,6 @@ const tweetPush = (images, tweets) => {
 module.exports = (id) => {
     return new Promise((resolve, reject) => {
         const loopNum = 16;
-        let data = {};
         let images = [];
         let count = 0;
         let beforeId;
@@ -45,9 +44,7 @@ module.exports = (id) => {
 
         let interval = setInterval(() => {
             if (count === loopNum) {
-                data.id = id;
-                data.images = images;
-                resolve(data);
+                resolve(images);
                 clearInterval(interval);
             }
             if (params.max_id !== beforeId) {
