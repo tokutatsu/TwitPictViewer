@@ -1,7 +1,7 @@
 <h1 class="mt-5">TwitPictViewer</h1>
 <p class="lead">TwitterアカウントのIDを指定して画像を見ることが出来ます。</p>
 <p class="lead">見れる画像は過去3200ツイート内で呟かれたものです。</p>
-<p class="lead">画像数が多いと少し重くなります。</p>
+<p class="lead">画像サイズが大きいと少し重くなります。</p>
 <form method="GET" action="/viewer">
     <div class="row">
         <div class="input-group mb-3 col-md-8">
@@ -15,14 +15,3 @@
         </div>
     </div>
 </form>
-
-<div id="blind" style="visibility: hidden;">
-    <div class="clearfix m-5" style="position: absolute; bottom: 0; right: 0; z-index: 999;">
-        <div class="spinner-border text-light" role="status" style="width: 6rem; height: 6rem;">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <font color="white">検索中...</font>
-    </div>
-</div>
-
-<script src="/public/javascript/index.js"></script>
