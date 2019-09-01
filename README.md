@@ -7,7 +7,7 @@ TwitterアカウントのIDを検索して画像を見ることができるア�
 
 ### パッケージのインストール
 ```
-npm install
+$ npm install
 ```
 
 ### TwitterAPIトークンの配置
@@ -23,7 +23,7 @@ npm install
 
 ### アプリケーションの実行
 ```
-node app.js
+$ node app.js
 ```
 
 ## 使用技術
