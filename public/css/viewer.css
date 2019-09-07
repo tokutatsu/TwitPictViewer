@@ -3,3 +3,17 @@
     height: 160px;
     object-fit: cover;
 }
+
+
+@media screen and (max-width: 460px) {
+    .lum-lightbox-inner img {
+        max-width: 160vw;  /* 軽くスワイプで左端から右端まで動かせる量 */
+        max-height: 85vh;  /* 上下に適度に余白 */
+    }
+
+    .view {
+        width: 100px;
+        height: 80px;
+        object-fit: cover;
+    }
+}

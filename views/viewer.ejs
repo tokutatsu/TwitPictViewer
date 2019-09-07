@@ -6,26 +6,27 @@
 
 <h1 class="mt-5">ユーザID: <%- id %></h1>
 
-<div id="spinner" class="spinner-border text-primary text-center" role="status" style="width: 6rem; height: 6rem;">
-    <span class="sr-only">Loading...</span>
+<div id="spinner" class="d-flex justify-content-center">
+    <div class="spinner-grow text-info" style="width: 6rem; height: 6rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 </div>
 
 <h1 id="imagescount"></h1>
 <div id="images"></div>
+<br>
 <div class="pagination justify-content-center" id="pagenav"></div>
+<br>
 
 <script type="text/javascript" src="/public/javascript/viewer.js"></script>
 <script type="text/javascript" src="/public/javascript/pager.js"></script>
 
 <script>
-    // ロード時に一覧取得
+    // ページ読み込みが完了したときに実行
     $(function () {
-        $.ajaxSetup({ async: false });
         $.getJSON(`/api/get_images?id=<%= id %>`, (images) => {
             $('#spinner').remove();
-            console.log(images);
             makePageNav(images);
         });
-        $.ajaxSetup({ async: true });
     });
 </script>
