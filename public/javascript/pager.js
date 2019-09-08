@@ -14,7 +14,7 @@ const makePageNav = (_images) => {
     $("#pagenav").append(`
         <li class="page-item" id="firstpage">
             <a class="page-link" href="#" aria-label="First" onclick="setPage('first')">
-                <span aria-hidden="true">最初</span>
+                <span aria-hidden="true">1ページ目へ</span>
             </a>
         </li>
         <li class="page-item" id="prevpage">
@@ -40,7 +40,7 @@ const makePageNav = (_images) => {
         </li>
         <li class="page-item" id="lastpage">
             <a class="page-link" href="#" aria-label="Last" onclick="setPage('last')">
-                <span aria-hidden="true">最後</span>
+                <span aria-hidden="true">${maxPage}ページ目へ</span>
             </a>
         </li>
     `)
