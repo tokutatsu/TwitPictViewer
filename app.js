@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
+const bodyParser = require('body-parser');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(expressLayouts);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./routes/router.js'));
 app.use('/api', require('./routes/api.js'));
 app.use('/public', express.static(__dirname + '/public'));
