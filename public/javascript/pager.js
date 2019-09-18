@@ -1,15 +1,16 @@
-const LIMIT = 100;
+let limit;
 let currentPage = 1;
 let maxPage, images;
 
-const makePageNav = (_images) => {
+const makePageNav = (_images, pageLimit) => {
     images = _images;
+    limit = pageLimit;
 
     $("#pagenav").empty();
     $("#imagescount").text(`${images.length}枚の画像`);
     if (images.length == 0) { return; }
-    maxPage = Math.floor(images.length / LIMIT);
-    if (images.length % LIMIT != 0) { maxPage++ };
+    maxPage = Math.floor(images.length / limit);
+    if (images.length % limit != 0) { maxPage++ };
 
     $("#pagenav").append(`
         <li class="page-item" id="firstpage">
@@ -71,13 +72,13 @@ const setPage = (page) => {
         default: currentPage = page; break;
     }
 
-    makePageNav(images);
+    makePageNav(images, limit);
     changeView();
 };
 
 const changeView = () => {
     $("#images").empty();
-    dispImages = images.slice((currentPage - 1) * LIMIT, currentPage * LIMIT)
+    dispImages = images.slice((currentPage - 1) * limit, currentPage * limit)
     for (let image of dispImages) {
         $("#images").append(`
             <a href="${image}" class="luminous">
