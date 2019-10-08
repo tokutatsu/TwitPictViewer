@@ -6,6 +6,14 @@ const makePageNav = (_images, pageLimit) => {
     images = _images;
     limit = pageLimit;
 
+    $('#pageLimit').empty();
+    for (let i = 50; i <= images.length; i += 50) {
+        $('#pageLimit').append(`
+            <option value="${i}">${i}</option>
+        `)
+    }
+    $('#pageLimit').append(`<option value="${images.length}">${images.length}</option>`)
+
     $("#pagenav").empty();
     $("#imagescount").text(`${images.length}枚の画像`);
     if (images.length == 0) { return; }
