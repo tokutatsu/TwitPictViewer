@@ -6,11 +6,19 @@ const makePageNav = (_images, pageLimit) => {
     images = _images;
     limit = pageLimit;
 
+    $('#pageLimit').empty();
+    for (let i = 50; i <= images.length; i += 50) {
+        $('#pageLimit').append(`
+            <option value="${i}">${i}</option>
+        `);
+    }
+    $('#pageLimit').append(`<option value="${images.length}">${images.length}</option>`);
+
     $("#pagenav").empty();
     $("#imagescount").text(`${images.length}枚の画像`);
     if (images.length == 0) { return; }
     maxPage = Math.floor(images.length / limit);
-    if (images.length % limit != 0) { maxPage++ };
+    if (images.length % limit != 0) { maxPage++; }
 
     $("#pagenav").append(`
         <li class="page-item" id="firstpage">
@@ -23,13 +31,13 @@ const makePageNav = (_images, pageLimit) => {
                 <span aria-hidden="true">&lt;</span>
             </a>
         </li>
-    `)
+    `);
 
     for (let i = 1; i <= maxPage; i++) {
         if (i == currentPage) {
-            $("#pagenav").append(`<li class="page-item disabled"><a class="page-link" href="#" id="pagenum">${i}</a></li>`)
+            $("#pagenav").append(`<li class="page-item disabled"><a class="page-link" href="#" id="pagenum">${i}</a></li>`);
         } else {
-            $("#pagenav").append(`<li class="page-item"><a class="page-link" href="#" id="pagenum" onclick="setPage(${i})">${i}</a></li>`)
+            $("#pagenav").append(`<li class="page-item"><a class="page-link" href="#" id="pagenum" onclick="setPage(${i})">${i}</a></li>`);
         }
     }
 
@@ -44,7 +52,7 @@ const makePageNav = (_images, pageLimit) => {
                 <span aria-hidden="true">${maxPage}ページ目へ</span>
             </a>
         </li>
-    `)
+    `);
 
     if (currentPage >= maxPage) {
         $('#nextpage').addClass("disabled");
@@ -84,7 +92,7 @@ const changeView = () => {
             <a href="${image}" class="luminous">
                 <img src="${image}" class="view" alt="画像">
             </a>
-        `)
+        `);
     }
     setLuminous();
 };

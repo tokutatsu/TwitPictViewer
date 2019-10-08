@@ -5,12 +5,13 @@
 </head>
 
 <div class="row mt-5">
-    <div class="col-8">
+    <div class="col-6">
         <h1>ユーザID: <%- id %></h1>
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <div class="input-group flex-nowrap">
-            <input class="form-control" type="number" id="pageLimit" value="100">
+            <!-- <input class="form-control" type="number" id="pageLimit" value="100"> -->
+            <select class="form-control" id="pageLimit"></select>
             <div class="input-group-append">
                 <span class="input-group-text" id="addon-wrapping">枚/ページ</span>
                 <input class="btn btn-outline-info" type="button" id="submitLimit" value="変更">
