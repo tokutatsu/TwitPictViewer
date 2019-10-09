@@ -6,14 +6,6 @@ const makePageNav = (_images, pageLimit) => {
     images = _images;
     limit = pageLimit;
 
-    $('#pageLimit').empty();
-    for (let i = 50; i <= images.length; i += 50) {
-        $('#pageLimit').append(`
-            <option value="${i}">${i}</option>
-        `);
-    }
-    $('#pageLimit').append(`<option value="${images.length}">${images.length}</option>`);
-
     $("#pagenav").empty();
     $("#imagescount").text(`${images.length}枚の画像`);
     if (images.length == 0) { return; }
@@ -71,6 +63,16 @@ const makePageNav = (_images, pageLimit) => {
     changeView();
 };
 
+const setPageLimit = () => {
+    $('#pageLimit').empty();
+    for (let i = 50; i <= images.length; i += 50) {
+        $('#pageLimit').append(`
+            <option value="${i}">${i}</option>
+        `);
+    }
+    $('#pageLimit').append(`<option value="${images.length}">${images.length}</option>`);
+};
+
 const setPage = (page) => {
     switch (page) {
         case "first": currentPage = 1; break;
@@ -86,7 +88,7 @@ const setPage = (page) => {
 
 const changeView = () => {
     $("#images").empty();
-    dispImages = images.slice((currentPage - 1) * limit, currentPage * limit)
+    dispImages = images.slice((currentPage - 1) * limit, currentPage * limit);  // 画像のURLが入っている配列から現在のページに必要なものを抜き出す
     for (let image of dispImages) {
         $("#images").append(`
             <a href="${image}" class="luminous">
