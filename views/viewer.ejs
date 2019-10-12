@@ -39,10 +39,18 @@
 <script>
     // ページ読み込みが完了したときに実行
     $(function () {
-        $.getJSON(`/api/get_images?id=<%= id %>`, (images) => {
+        $.getJSON(`/api/get_images?id=<%= id %>`, (data) => {
             $('#spinner').remove();
-            makePageNav(images, 50);
-            setPageLimit();
+            if (!data.error) {
+                makePageNav(data.images, 50);
+                setPageLimit();
+            } else {
+                if (data.error.code == 34) {
+                    $("#imagescount").text(`指定したアカウントは見つかりませんでした`);
+                } else {
+                    $("#imagescount").text(`エラーが発生しました`);
+                }
+            }
         });
     });
 </script>

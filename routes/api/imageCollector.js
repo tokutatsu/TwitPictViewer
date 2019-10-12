@@ -32,13 +32,15 @@ module.exports = (id) => {
         };
 
         // 1回目だけparam.max_idが'undefined'なので別処理
-        client.get('statuses/user_timeline', params, (err, tweets, res) => {
-            if (!err) {
+        client.get('statuses/user_timeline', params, (error, tweets, res) => {
+            if (!error) {
                 params.max_id = tweetPush(images, tweets);
                 count++;
                 if (params.max_id === null) {
                     count = loopNum;
                 }
+            } else {
+                reject(error);
             }
         });
 
@@ -49,13 +51,15 @@ module.exports = (id) => {
             }
             if (params.max_id !== beforeId) {
                 beforeId = params.max_id;
-                client.get('statuses/user_timeline', params, (err, tweets, res) => {
-                    if (!err) {
+                client.get('statuses/user_timeline', params, (error, tweets, res) => {
+                    if (!error) {
                         params.max_id = tweetPush(images, tweets);
                         count++;
                         if (params.max_id === null) {
                             count = loopNum;
                         }
+                    } else {
+                        reject(error);
                     }
                 });
             }
