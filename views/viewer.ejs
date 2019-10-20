@@ -41,7 +41,7 @@
     $(function () {
         $.getJSON(`/api/get_images?id=<%= id %>`, (data) => {
             $('#spinner').remove();
-            if (!data.error) {
+            if (data.images) {
                 makePageNav(data.images, 50);
                 setPageLimit();
             } else {

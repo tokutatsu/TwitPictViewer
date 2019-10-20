@@ -8,7 +8,11 @@ const makePageNav = (_images, pageLimit) => {
 
     $("#pagenav").empty();
     $("#imagescount").text(`${images.length}枚の画像`);
-    if (images.length == 0) { return; }
+    if (images.length == 0) {
+        $("#imagescount").text(`画像がツイートされていません`);
+        return;
+    }
+
     maxPage = Math.floor(images.length / limit);
     if (images.length % limit != 0) { maxPage++; }
 
