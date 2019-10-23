@@ -6,9 +6,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/viewer', (req, res) => {
-    res.render('viewer', {
-        id: req.body.id
-    });
+    let sanitizedId = req.body.id.replace(/</g, '&lt;').replace(/>/g, '&gt;');  // アカウントのIDをサニタイジング
+
+    res.render('viewer', { id: sanitizedId });
 });
 
 module.exports = router;

@@ -9,6 +9,7 @@ api.get('/get_images', (req, res) => {
             code: null
         }
     };
+
     imageCollector(req.query.id).then((images) => {
         data.images = images;
         res.send(JSON.stringify(data));
