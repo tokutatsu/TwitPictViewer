@@ -40,6 +40,7 @@ module.exports = (id) => {
                     count = loopNum;
                 }
             } else {
+                // console.log(error);  // エラーハンドリング用の出力
                 reject(error);
             }
         });
@@ -59,6 +60,7 @@ module.exports = (id) => {
                             count = loopNum;
                         }
                     } else {
+                        // console.log(error);  // エラーハンドリング用の出力
                         reject(error);
                     }
                 });
