@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 3000;
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -26,6 +27,7 @@ app.use((err, req, res, next) => {
     res.render('error', { error: err });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("Start Server " + new Date);
+    console.log("PORT " + PORT);
 });
