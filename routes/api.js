@@ -5,22 +5,15 @@ const imageCollector = require('../services/imageCollector.js');
 api.get('/get_images', (req, res) => {
     let data = {
         images: null,
-        error: {
-            code: null
-        }
+        code: null
     };
 
     imageCollector.collectImage(req.query.id).then((images) => {
         data.images = images;
+        data.code = 200;
         res.send(JSON.stringify(data));
-    }).catch((error) => {
-        if (typeof error[0] === 'undefined') {
-            // HTTPステータスコードでエラーが出ているときの例外処理
-            data.error.code = -1  // 現状エラーコードを-1にしているが可能であればHTTPステータスコードを代入するのが好ましい
-        } else {
-            // Twitter APIがエラーメッセージを返す時のエラー抽出
-            data.error = error[0];  // エラーが配列に入っているのでオブジェクトのみを取り出す
-        }
+    }).catch((errorCode) => {
+        data.code = errorCode  // エラーコードを代入する
         res.send(JSON.stringify(data));
     });
 });

@@ -55,9 +55,12 @@ module.exports.collectImage = (id) => {
             }
             if (params.max_id !== beforeId) {
                 beforeId = params.max_id;
-                client.get('statuses/user_timeline', params, (error, tweets, res) => {
+                client.get('statuses/user_timeline', params, (errors, tweets, res) => {
                     // console.log(res.statusCode);  // ステータスコードの確認
-                    if (!error) {
+                    if (res.statusCode != 200) {
+                        reject(res.statusCode);
+                    }
+                    if (!errors) {
                         params.max_id = tweetPush(images, tweets);
                         count++;
                         if (params.max_id === null) {
@@ -65,7 +68,7 @@ module.exports.collectImage = (id) => {
                         }
                     } else {
                         // console.log(error);  // エラーハンドリング用の出力
-                        reject(error);
+                        reject(errors[0].code);
                     }
                 });
             }
