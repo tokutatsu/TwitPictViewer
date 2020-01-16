@@ -1,5 +1,5 @@
 const twitter = require('twitter');
-const client = new twitter(require('../../token.json'));
+const client = new twitter(require('../token.json'));
 const Long = require('long');
 
 const tweetPush = (images, tweets) => {
@@ -11,7 +11,6 @@ const tweetPush = (images, tweets) => {
             }
         }
         minId = tweet.id_str;
-
     }
     if (typeof minId === 'undefined') {
         return null;
@@ -19,7 +18,7 @@ const tweetPush = (images, tweets) => {
     return Long.fromString(minId).subtract(1).toString();
 };
 
-module.exports = (id) => {
+module.exports.collectImage = (id) => {
     return new Promise((resolve, reject) => {
         const loopNum = 16;
         let images = [];
@@ -33,6 +32,10 @@ module.exports = (id) => {
 
         // 1回目だけparam.max_idが'undefined'なので別処理
         client.get('statuses/user_timeline', params, (error, tweets, res) => {
+            // console.log(res.statusCode);  // ステータスコードの確認
+            if (res.statusCode != 200) {
+                reject(res.statusCode);
+            }
             if (!error) {
                 params.max_id = tweetPush(images, tweets);
                 count++;
@@ -53,6 +56,7 @@ module.exports = (id) => {
             if (params.max_id !== beforeId) {
                 beforeId = params.max_id;
                 client.get('statuses/user_timeline', params, (error, tweets, res) => {
+                    // console.log(res.statusCode);  // ステータスコードの確認
                     if (!error) {
                         params.max_id = tweetPush(images, tweets);
                         count++;
