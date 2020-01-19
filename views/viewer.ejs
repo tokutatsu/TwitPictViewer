@@ -60,15 +60,25 @@
     $(function () {
         $.getJSON(`/api/get_images?id=<%= id %>`, (data) => {
             $('#spinner').remove();
-            if (data.images) {
-                makePageNav(data.images, 50);
-                setPageLimit();
-            } else {
-                if (data.error.code == 34) {
+            switch (data.code) {
+                case 200:
+                    makePageNav(data.images, 50);
+                    setPageLimit();
+                    break;
+                case 400:
+                    $("#imagescount").text(`Bad Request`);
+                    break;
+                case 401:
+                    $("#imagescount").html(`指定したアカウントは以下のような可能性があります<br>・アカウントの凍結<br>・非表示設定`);
+                    break;
+                case 403:
+                    $("#imagescount").text(`Forbidden`);
+                    break;
+                case 404:
                     $("#imagescount").text(`指定したアカウントは見つかりませんでした`);
-                } else {
-                    $("#imagescount").text(`エラーが発生しました`);
-                }
+                    break;
+                default:
+                    $("#imagescount").text(`予期せぬエラーが発生しました`);
             }
         });
     });

@@ -1,11 +1,9 @@
 const assert = require('assert').strict;
-const imageCollector = require('../../../routes/api/imageCollector.js');
+const imageCollector = require('../../services/imageCollector.js');
 
 describe('imageCollectorのテスト', () => {
-    const test = imageCollector('tokutatsu1010');
-
     it('配列がURLか空かどうか', (done) => {
-        test.then((images) => {
+        imageCollector.collectImage('tokutatsu1010').then((images) => {
             if (images.length == 0) {
                 assert.ok(true);
             } else {
