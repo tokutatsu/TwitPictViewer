@@ -3,7 +3,7 @@ const imageCollector = require('../../services/imageCollector.js');
 
 describe('imageCollectorのテスト', () => {
     it('配列がURLか空かどうか', (done) => {
-        imageCollector.collectImage('tokutatsu1010').then((images) => {
+        imageCollector.collectImage('twitter').then((images) => {
             if (images.length == 0) {
                 assert.ok(true);
             } else {

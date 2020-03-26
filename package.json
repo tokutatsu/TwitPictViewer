@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tokutatsu/TwitPictViewer#readme",
   "dependencies": {
-    "ejs": "^2.6.2",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "long": "^4.0.0",
@@ -25,6 +25,6 @@
     "twitter": "^1.7.1"
   },
   "devDependencies": {
-    "mocha": "^6.1.4"
+    "mocha": "^7.1.1"
   }
 }
