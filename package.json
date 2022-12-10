@@ -18,7 +18,7 @@
   "homepage": "https://github.com/tokutatsu/TwitPictViewer#readme",
   "dependencies": {
     "ejs": "^3.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.0",
     "long": "^4.0.0",
     "luminous-lightbox": "^2.3.2",
